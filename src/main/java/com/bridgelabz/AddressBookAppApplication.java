@@ -1,35 +1,42 @@
 package com.bridgelabz;
 
 import java.util.*;
-import org.springframework.boot.SpringApplication;
+//import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class AddressBookAppApplication {
 	static Scanner sc = new Scanner(System.in);
+	static ArrayList<Contact> addressBook = new ArrayList<>();
 
 	// method to add contacts
-	public static Contact addContacts() {
-		System.out.println("Enter details:- ");
-		System.out.print("First name: ");
-		String firstName = sc.nextLine();
-		System.out.print("Last name: ");
-		String lastName = sc.nextLine();
-		System.out.print("Address: ");
-		String address = sc.nextLine();
-		System.out.print("City: ");
-		String city = sc.nextLine();
-		System.out.print("State: ");
-		String state = sc.nextLine();
-		System.out.print("Zip code: ");
-		int zip = sc.nextInt();
-		System.out.println("Phone number: ");
-		long phoneNumber = sc.nextInt();
+	public static void addContacts() {
+		System.out.println("Enter number of contact to add: ");
+		int num = sc.nextInt();
 		sc.nextLine();
-		System.out.println("Email: ");
-		String email = sc.nextLine();
-		Contact c = new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email);
-		return c;
+		while (num != 0) {
+			System.out.println("Enter details:- ");
+			System.out.print("First name: ");
+			String firstName = sc.nextLine();
+			System.out.print("Last name: ");
+			String lastName = sc.nextLine();
+			System.out.print("Address: ");
+			String address = sc.nextLine();
+			System.out.print("City: ");
+			String city = sc.nextLine();
+			System.out.print("State: ");
+			String state = sc.nextLine();
+			System.out.print("Zip code: ");
+			int zip = sc.nextInt();
+			System.out.println("Phone number: ");
+			long phoneNumber = sc.nextInt();
+			sc.nextLine();
+			System.out.println("Email: ");
+			String email = sc.nextLine();
+			Contact c = new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email);
+			addressBook.add(c);
+			num--;
+		}
 	}
 
 	// method to edit contacts using name
@@ -106,8 +113,8 @@ public class AddressBookAppApplication {
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to Address Book Program");
-		ArrayList<Contact> addressBook = new ArrayList<>();
-		addressBook.add(addContacts());
+		addContacts();
+		System.out.println(addressBook);
 		System.out.println(editContactByName(addressBook));
 		System.out.println(deleteContactByName(addressBook));
 	}

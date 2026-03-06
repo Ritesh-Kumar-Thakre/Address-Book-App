@@ -89,12 +89,26 @@ public class AddressBookAppApplication {
 		return "No contact found";
 	}
 
+	// method to delete contacts using name
+	public static String deleteContactByName(ArrayList<Contact> list) {
+		System.out.print("Enter full name of the Contact: ");
+		String name = sc.nextLine();
+
+		for (int i = 0; i < list.size(); i++) {
+			String fullName = list.get(i).firstName + " " + list.get(i).lastNames;
+			if (fullName.equals(name)) {
+				list.remove(list.get(i));
+				return "Contact removed";
+			}
+		}
+		return "No contact found";
+	}
+
 	public static void main(String[] args) {
 		System.out.println("Welcome to Address Book Program");
 		ArrayList<Contact> addressBook = new ArrayList<>();
 		addressBook.add(addContacts());
-		System.out.println(addressBook);
 		System.out.println(editContactByName(addressBook));
-		System.out.println(addressBook);
+		System.out.println(deleteContactByName(addressBook));
 	}
 }

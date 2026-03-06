@@ -7,7 +7,34 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class AddressBookAppApplication {
 
+	// method to add contacts
+	public static Contact addContacts() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter details:- ");
+		System.out.print("First name: ");
+		String firstName = sc.nextLine();
+		System.out.print("Last name: ");
+		String lastName = sc.nextLine();
+		System.out.print("Address: ");
+		String address = sc.nextLine();
+		System.out.print("City: ");
+		String city = sc.nextLine();
+		System.out.print("State: ");
+		String state = sc.nextLine();
+		System.out.print("Zip code: ");
+		int zip = sc.nextInt();
+		System.out.println("Phone number: ");
+		int phoneNumber = sc.nextInt();
+		sc.nextLine();
+		System.out.println("Email: ");
+		String email = sc.nextLine();
+		Contact c = new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email);
+		return c;
+	}
+
 	public static void main(String[] args) {
 		System.out.println("Welcome to Address Book Program");
+		ArrayList<Contact> addressBook = new ArrayList<>();
+		addressBook.add(addContacts());
 	}
 }

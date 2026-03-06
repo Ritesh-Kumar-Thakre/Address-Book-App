@@ -1,6 +1,5 @@
 package com.bridgelabz;
 
-
 public class Contact {
 	protected String firstName;
 	protected String lastNames;
@@ -8,11 +7,11 @@ public class Contact {
 	protected String city;
 	protected String state;
 	protected int zip;
-	protected int phoneNumber;
+	protected long phoneNumber;
 	protected String email;
 
 	public Contact(String firstName, String lastNames, String address, String city, String state, int zip,
-			int phoneNumber, String email) {
+			long phoneNumber, String email) {
 		this.firstName = firstName;
 		this.lastNames = lastNames;
 		this.address = address;

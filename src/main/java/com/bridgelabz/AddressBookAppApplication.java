@@ -7,10 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class AddressBookAppApplication {
 	static Scanner sc = new Scanner(System.in);
-	static ArrayList<Contact> addressBook = new ArrayList<>();
 
 	// method to add contacts
-	public static void addContacts() {
+	public static void addContacts(List<Contact> addressBook) {
 		System.out.println("Enter number of contact to add: ");
 		int num = sc.nextInt();
 		sc.nextLine();
@@ -40,7 +39,8 @@ public class AddressBookAppApplication {
 	}
 
 	// method to edit contacts using name
-	public static String editContactByName(ArrayList<Contact> list) {
+	public static String editContactByName(List<Contact> list) {
+		System.out.println("\n================ EDIT CONTACT BY NAME ================\n");
 		System.out.print("Enter full name of the Contact: ");
 		String name = sc.nextLine();
 
@@ -97,7 +97,8 @@ public class AddressBookAppApplication {
 	}
 
 	// method to delete contacts using name
-	public static String deleteContactByName(ArrayList<Contact> list) {
+	public static String deleteContactByName(List<Contact> list) {
+		System.out.println("\n================ DELETE CONTACT BY NAME ================\n");
 		System.out.print("Enter full name of the Contact: ");
 		String name = sc.nextLine();
 
@@ -113,9 +114,9 @@ public class AddressBookAppApplication {
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to Address Book Program");
-		addContacts();
-		System.out.println(addressBook);
-		System.out.println(editContactByName(addressBook));
-		System.out.println(deleteContactByName(addressBook));
+		AddressBook ab = new AddressBook();
+		addContacts(ab.addressBook);
+		System.out.println(editContactByName(ab.addressBook));
+		System.out.println(deleteContactByName(ab.addressBook));
 	}
 }

@@ -1,122 +1,63 @@
 package com.bridgelabz;
 
-import java.util.*;
+import java.util.Scanner;
+import java.util.Map;
+import java.util.HashMap;
 //import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class AddressBookAppApplication {
-	static Scanner sc = new Scanner(System.in);
-
-	// method to add contacts
-	public static void addContacts(List<Contact> addressBook) {
-		System.out.println("Enter number of contact to add: ");
-		int num = sc.nextInt();
-		sc.nextLine();
-		while (num != 0) {
-			System.out.println("Enter details:- ");
-			System.out.print("First name: ");
-			String firstName = sc.nextLine();
-			System.out.print("Last name: ");
-			String lastName = sc.nextLine();
-			System.out.print("Address: ");
-			String address = sc.nextLine();
-			System.out.print("City: ");
-			String city = sc.nextLine();
-			System.out.print("State: ");
-			String state = sc.nextLine();
-			System.out.print("Zip code: ");
-			int zip = sc.nextInt();
-			System.out.println("Phone number: ");
-			long phoneNumber = sc.nextInt();
-			sc.nextLine();
-			System.out.println("Email: ");
-			String email = sc.nextLine();
-			Contact c = new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email);
-			addressBook.add(c);
-			num--;
-		}
-	}
-
-	// method to edit contacts using name
-	public static String editContactByName(List<Contact> list) {
-		System.out.println("\n================ EDIT CONTACT BY NAME ================\n");
-		System.out.print("Enter full name of the Contact: ");
-		String name = sc.nextLine();
-
-		for (int i = 0; i < list.size(); i++) {
-			String fullName = list.get(i).firstName + " " + list.get(i).lastNames;
-			if (fullName.equals(name)) {
-				while (true) {
-					System.out.println(
-							"Enter the area of edit: -->firstName, lastName, address, city, state, zip, phoneNumber, email<-- -->EXIT<--");
-					String edit = sc.nextLine();
-					switch (edit) {
-					case "firstName":
-						System.out.print("Enter new first name: ");
-						list.get(i).firstName = sc.nextLine();
-						break;
-					case "lastName":
-						System.out.print("Enter new last name: ");
-						list.get(i).lastNames = sc.nextLine();
-						break;
-					case "address":
-						System.out.print("Enter new address: ");
-						list.get(i).address = sc.nextLine();
-						break;
-					case "city":
-						System.out.print("Enter new city: ");
-						list.get(i).city = sc.nextLine();
-						break;
-					case "state":
-						System.out.print("Enter new state: ");
-						list.get(i).state = sc.nextLine();
-						break;
-					case "zip":
-						System.out.print("Enter new zip: ");
-						list.get(i).zip = sc.nextInt();
-						break;
-					case "phoneNumber":
-						System.out.print("Enter new phone number: ");
-						list.get(i).phoneNumber = sc.nextLong();
-						break;
-					case "email":
-						System.out.print("Enter new email: ");
-						list.get(i).email = sc.nextLine();
-						break;
-					case "EXIT":
-						return "Contact edited";
-					default:
-						System.out.println("Invalid option selected.");
-						break;
-					}
-				}
-			}
-		}
-		return "No contact found";
-	}
-
-	// method to delete contacts using name
-	public static String deleteContactByName(List<Contact> list) {
-		System.out.println("\n================ DELETE CONTACT BY NAME ================\n");
-		System.out.print("Enter full name of the Contact: ");
-		String name = sc.nextLine();
-
-		for (int i = 0; i < list.size(); i++) {
-			String fullName = list.get(i).firstName + " " + list.get(i).lastNames;
-			if (fullName.equals(name)) {
-				list.remove(list.get(i));
-				return "Contact removed";
-			}
-		}
-		return "No contact found";
-	}
-
 	public static void main(String[] args) {
-		System.out.println("Welcome to Address Book Program");
+		Scanner sc = new Scanner(System.in);
 		AddressBook ab = new AddressBook();
-		addContacts(ab.addressBook);
-		System.out.println(editContactByName(ab.addressBook));
-		System.out.println(deleteContactByName(ab.addressBook));
+		Map<String, AddressBook> addressBooks = new HashMap<>();
+		System.out.println("Welcome to Address Book Program\n");
+
+		System.out.println("**************Operations****************\n");
+		System.out.println(
+				"To add new address book press --> 1\nTo work on specific address book press --> 2\nTo exit press -->3\n");
+		while (true) {
+			System.out.print("Enter your choise: ");
+			int operation = sc.nextInt();
+			sc.nextLine();
+			switch (operation) {
+			case 1:
+				System.out.print("Enter address book name: ");
+				String name = sc.nextLine();
+				if (!addressBooks.containsKey(name)) {
+					addressBooks.put(name, ab);
+				} else {
+					System.out.println("Address book already exist");
+					break;
+				}
+				break;
+			case 2:
+				System.out.println("Enter address book name to select");
+				String name1 = sc.nextLine();
+				AddressBook select = addressBooks.get(name1);
+				System.out.print("Enter your choice:\n ");
+				System.out.println("1 -> Add Contacts\n 2 -> Edit Contact By Name\n 3 -> Delete Contact By Name\n ");
+				int choice = sc.nextInt();
+				switch (choice) {
+				case 1:
+					select.addContacts();
+					break;
+				case 2:
+					System.out.println(select.editContactByName());
+					break;
+				case 3:
+					System.out.println(select.deleteContactByName());
+					break;
+				default:
+					System.out.println("Wrong choice!!");
+				}
+				break;
+			case 3:
+				return;
+			default:
+				System.out.println("Wrong operation!!");
+			}
+		}
 	}
 }
